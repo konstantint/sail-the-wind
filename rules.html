@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- 
+            Rules of the Sail the Wind game.
+            Copyright 2017, Konstantin Tretyakov
+            License: CC BY-NC-SA 3.0 
+        -->
+        <title>Sail the Wind - Rules of the Game</title>
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+        <style>
+.container-fluid {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 600px;
+}
+.page-header img {
+    margin-bottom: 10px;
+}
+.page-header h1 {
+    text-align: center;
+}
+.page-header h2 {
+    margin-top: -5px;
+    text-align: center;
+    color: gray;
+}
+p { text-align: justify; }
+        </style>
+    </head>
+    <body class="container-fluid">
+        <div class="page-header">
+            <h1><img src="favicon.jpg" width="35" height="35"> Sail the Wind</h1>
+            <h2>Rules of the Game</h2>
+        </div>
+        <p>
+        This page implements an interactive board for playing a sailing race game. The game mechanics mimic the board game <a href="https://boardgamegeek.com/boardgame/22684/race-wind" target="_blank">"Race the Wind"</a>, with minor modifications. Note that what you have here is a barebones <b>playing board</b> along with the rules description below. This lets you play the game with your friends using a single computer or tablet. No network play or single-player option is provided - there is as much functionality here as you would expect from a single evening's worth of work. You are welcome to contribute functionality at the corresponding <a href="https://github.com/konstantint/sail-the-wind" target="_blank">github repository</a>.
+        </p>
+        <p>
+        The board has basic functionality to help you follow the core rules of the game, but it does not enforce them too strictly, so you are free to try your own variations.
+        </p>
+        <p>
+        The rules assume the reader knows basic sailing terms and in general are rather sketchily written, because, as noted above, it's one evening's project. Perhaps I'll find more time to improve on that later.
+        </p>
+        <h2>Game mechanics</h2>
+        <p>
+        The game is played by 2-4 players. Each player controls a boat in a regatta race. In a two-player game each player can control two boats.
+        </p>
+        <p>
+        Boats move along the board with the goal to cross the starting line, follow a regatta course, and cross the finish line first. The simplest regatta course requires rounding the buoy at the top of the board (leaving it to the left) and finishing at the starting line. You can of course choose to make more laps or choose a different course completely.
+        </p>
+        <p>
+        The gameplay is split into <i>turns</i>. In each turn each boat performs some of the <i>allowed actions</i>. Once every boat has performed the actions, a new turn begins.
+        </p>
+        <h3>The Wind, Puffs and Lulls</h3>
+        <p>
+        The arrow at the upper right corner shows the wind direction (the one it is blowing towards). At the beginning of the game the wind blows "from the top of the board towards the bottom". Some squares on the board have darker or lighter color. The darker squares are "puffs" (regions with more wind), the lighter are "lulls" (regions with less wind). At the beginning of the game they are randomly distributed along the field.
+        </p>
+        <p>At the end of each turn the wind, puffs and lulls may change. A 6-sided dice is thrown - if the result is 1 all puffs and lulls move one space in the wind direction. If the result is 2, wind is rotated 45 degrees left or right (decided with a coinflip), otherwise nothing happens. The board does that automatically whenever the button "End turn" is clicked.
+        </p>
+        
+        <h3>Actions</h3>
+        <p>
+        The actions a boat may perform each turn depend on its orientation with respect to the wind. We distinguish five orientations: <i>in the wind</i> (boat's nose pointed against the wind), <i>close reach</i> (boat nose turned 45 degrees away from being against the wind), <i>beam reach</i> (boat is 90 degrees to the wind), <i>broad reach</i> (boat is 45 degrees away from wind direction) and <i>run</i> (boat's direction is the same as the wind).
+        </p>
+        <ul>
+        <li><b>In the wind.</b> When the boat is in the wind, the only action it may perform is turn 45 or 90 degrees left or right.</li>
+        <li><b>Close reach.</b> The boat may choose between moving one square forward or turning 45 or 90 degrees left or right. The boat may not turn into the wind.</li>
+        <li><b>Beam reach.</b> The boat may do two actions, each of them being either a move or a 45-90 turn. Again, the boat may not turn into the wind. It is essentially having 2 x close reach actions.</li>
+        <li><b>Broad reach.</b> The boat can either move and turn 45-90 degrees, or just turn 45-90 degrees.</li>
+        <li><b>Run.</b> Same as close reach - either moving or turning.
+        </ul>
+        <p>
+        A boat can skip any actions (either moves or turns) it wants to.
+        </p>
+        <h3>Puffs and Lulls</h3>
+        <p>Whenever a boat moves into a lull, it is automatically stopped and "blocked" there. A blocked boat will skip the next turn - it's only possible action for that turn will be to "unblock" itself.</p>
+        <p>If, at the end of a turn, a lull moves away from under the boat, the block is also automatically removed. Similarly, if a lull moves to the square with a boat, the boat becomes blocked for the upcoming turn.</p>
+        <p>If a boat ends its action on a puff, AND its last action was a move (not a turn), it is entitled to make another move in the same direction. If after that move the boat again ends on a puff, it may take another move forward and so on.
+        </p>
+        <h3>Wind Shadows</h3>
+        <p>Each boat has its "wind shadow", which is located one square away in the wind direction. If a boat enters a wind shadow of any other boat, it becomes "shadowed". A special "shadow token" will be placed two squares ahead on the current course of the shadowed boat. It acts like a lull, applicable only to that particular boat. The shadow token will be removed whenever a shadowed boat manouvers (i.e. turns instead of moving forward).</p>
+        <h3>Penalties</h3>
+        <p>Whenever the square a boat A wants to move to is occupied by another boat B, the outcome depends on which of the boats has precedence.</p>
+        <ul>
+        <li>If boat B has precedence, nothing happens. Boat A simply has to choose another course.</li>
+        <li>If boat A has precedence and boat B did not yet make its action, boat A may pass the turn, letting B act first, and then get back to resolving the situation.</li>
+        <li>If boat A has precedence and boat B already made its action this turn, boat A has to choose another course, but may declare a <i>penalty</i> for boat B.</li>
+        </ul>
+        <p>
+        For each penalty a boat gets it has to make a full turn of 4 moves sometime before the end of the race.
+        </p>
+        <h3>Precedence Rules</h3>
+        <p>The following interpretation of the standard sailing precedence rules is used:</p>
+        <ul>
+        <li>If the boats are on different tacks, starboard tack has precedence.</li>
+        <li>If the boats are on the same tack, the boat further away from the wind has precedence.</li>
+        <li>If the boats are on the same tack and neither is further from the wind, the boat sailing closer to the wind has precedence.</li>
+        <li>If the boats are on the same tack, neither is further from the wind and both sail at the same angle, the boat behind has precedence.</li>
+        </ul>
+        <p>Note that, for example, in the following situation (the wind coming from the top) the red boat (unless it is willing to get a penalty) is forced to sail forward without changing course.</p>
+        <p class="text-center"><img src="rules-1.png"></p>
+        <h3>Spinnaker</h3>
+        <p>When on a broad reach or a beam reach, the boat may exchange its "manouver" action for a "set spinnaker" action. A 6-sided die is thrown and if 1 comes up, the boat becomes blocked. Otherwise, the boat starts carrying a "spinnaker" token. This is implemented in the board logic.</p>
+        <p>A boat with a spinnaker token may not turn into beam or close reach. If a boat ends up in a beam or close reach due to a wind shift, it loses the spinnaker and becomes blocked.</p>
+        <p>On a broad reach or a run, a boat with a spinnaker may, instead of the standard actions, take two moves straight.</p>
+        <p>To take down the spinnaker the boat needs to spend its "manouver" action. This is always successful (i.e. no dice thrown).</p>
+        <h3>The Start of the Race</h3>
+        <p>At the beginning the boats are positioned near the starting line. To begin the race they must cross the starting line at turn number 8 or later. If a boat is present at the starting line at turn 6 or 7 it gets a penalty.
+        </p>
+        <h3>The End of the Race</h3>
+        <p>A boat finishes when it <i>crosses</i> the finish line (i.e. being on the line does not yet constitute a finish). If several boats finish on the same turn, the winner is determined by applying the <i>Precedence Rules</i> above to the boats <i>as they cross the finish line</i> (i.e. making a sharp turn to the wind after crossing the line does not help increase precedence).</p>
+        
+        <p style="margin-top: 50px;"><small>Copyright &copy; 2017, Konstantin Tretyakov. This implementation is subject to the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPLv3</a> license. The text of the rules is subject to <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA 3.0</a> license.</small></p>
+        <p><small>The original Race the Wind game designed by Saverio Robberto and Domenico Troia.</small></p>
+    </body>
+</html>

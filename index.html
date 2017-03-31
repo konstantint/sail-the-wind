@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- 
+            Sail the Wind interactive board.
+            Copyright 2017, Konstantin Tretyakov
+            License: GPLv3 
+        -->    
+        <title>Sail the Wind</title>
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script src="d3.v4.min.js"></script>
+    </head>
+    <body>
+        <h1><img src="favicon.jpg"> Sail the Wind <a href="rules.html" target="_blank">[Game rules]</a></h1>
+        <svg id="field" width="770" height="550">
+            <g class="templates" transform="translate(100, 100) scale(3)">
+                <g id="boat-template" class="boat">
+                    <polygon points="9,0 -6,-5 -6,5"/>
+                    <line x1="4" y1="0" x2="-4" y2="3" class="sail port"/>
+                    <line x1="4" y1="0" x2="-4" y2="-3" class="sail starboard"/>
+                    <path d="M6,6 a6.5,6.5 0 0,0 0,-12" class="spinnaker"/>
+                </g>
+                <g id="wind-template">
+                    <text class="wind-label" font-size="20">Wind</text>
+                    <g transform="translate(0,40)">
+                        <image class="wind-image" x="-20" y="-20" href="wind.png"/>
+                    </g>
+                </g>
+                <g id="turn-template">
+                    <text class="turn-label" font-size="20">Turn</text>
+                    <text class="turn" font-size="30" y="25">1</text>
+                </g>
+                <g id="boat-block-template" class="boat-block">
+                    <line x1="0" y1="0" x2="20" y2="20"/>
+                    <line x1="0" y1="20" x2="20" y2="0"/>
+                </g>                
+            </g>
+        </svg>
+        <script src="script.js"></script>
+        <script>
+            board = new GameBoard("#field");
+        </script>
+    </body>
+</html>
