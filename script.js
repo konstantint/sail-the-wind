@@ -77,18 +77,18 @@ Player.prototype.turn = function(dir, windDir) {
 
 // ------------------ Game state -------------------- //
 function GameState(nplayers, rows, cols) {
-    this.rows = typeof rows !== 'undefined' ? rows : 18;
-    this.cols = typeof cols !== 'undefined' ? cols : 21;
+    this.rows = typeof rows !== 'undefined' ? rows : 14;
+    this.cols = typeof cols !== 'undefined' ? cols : 15;
     this.nplayers = typeof nplayers !== 'undefined' ? nplayers : 4;
     this.init();
 }
 
 GameState.prototype.init = function() {
     var self = this;
-    this.buoys = [{r: 13, c: 8}, {r: 13, c: 12}, {r: 4, c: 10}];
+    this.buoys = [{r: 10, c: 5}, {r: 10, c: 9}, {r: 3, c: 7}];
     this.puffs = array2d(this.rows, this.cols, function(r, c) { return randomPuff(); });
     this.wind = 2;
-    this.players = [new Player(10, 5, 1), new Player(10, 15, 3), new Player(14, 19, 5), new Player(14, 0, 7)];
+    this.players = [new Player(9, 2, 1), new Player(9, 12, 3), new Player(11, 14, 5), new Player(11, 0, 7)];
     this.players.splice(this.nplayers);
     this.currentPlayer = 0;
     this.currentTurn = 1;
@@ -240,7 +240,8 @@ GameBoard.prototype.init = function() {
     this.zoom.attr("transform", "translate(" + 3 + "," + 3 + ") scale(1.5)");    
     
     // Playing field
-    this.field = this.zoom.append("g");    
+    var FIELD_SCALE = 1.4;
+    this.field = this.zoom.append("g").attr("transform", "scale(" + FIELD_SCALE + ")");    
     this.field.selectAll("*").remove();
     
     // Add field squares
@@ -268,22 +269,6 @@ GameBoard.prototype.init = function() {
             .attr("y", function(d) { return SQUARE_SIZE*d.r; })
             .attr("class", "buoy")
             .on("click", function(d,i,bs) { self.clickBuoy(d,i,bs); });
-    
-    // Wind marker
-    var windTemplate = d3.select("#wind-template").node();    
-    this.zoom
-        .append(function() { return windTemplate.cloneNode(true); })
-        .attr("id", null)
-        .attr("transform", "translate(" + (SQUARE_SIZE * state.cols + 40) + ",0) scale(0.8)");
-    this.zoom.select(".wind-image").attr("transform", "rotate(" + 45*state.wind + ")");
-
-    // Turn counter
-    var turnTemplate = d3.select("#turn-template").node();    
-    this.zoom
-        .append(function() { return turnTemplate.cloneNode(true); })
-        .attr("id", null)
-        .attr("transform", "translate(" + (SQUARE_SIZE * state.cols + 40) + "," + (SQUARE_SIZE * state.rows - 40) + ") scale(0.8)");
-    this.zoom.select(".turn").text(state.currentTurn).classed("red", state.currentTurn == 6 || state.currentTurn == 7);
     
     // Players
     var playerTemplate = d3.select("#boat-template").node();
@@ -327,6 +312,23 @@ GameBoard.prototype.init = function() {
                 .attr("cy", function(ws) { return (ws.r+0.5)*SQUARE_SIZE; });
     }
     
+    // Controls
+    var controls = this.zoom.append("g").attr("transform", "translate(" + (SQUARE_SIZE * state.cols * FIELD_SCALE + 10) + ",2) scale(1.1)");
+    
+    // Wind marker
+    var windTemplate = d3.select("#wind-template").node();    
+    controls.append(function() { return windTemplate.cloneNode(true); })
+        .attr("id", null)
+        .attr("transform", "translate(34,0) scale(0.65)");
+    controls.select(".wind-image").attr("transform", "rotate(" + 45*state.wind + ")");
+
+    // Turn counter
+    var turnTemplate = d3.select("#turn-template").node();    
+    controls.append(function() { return turnTemplate.cloneNode(true); })
+        .attr("id", null)
+        .attr("transform", "translate(34," + (SQUARE_SIZE*1.3*10+SQUARE_SIZE*2.5 + 5) + ") scale(0.65)");
+    controls.select(".turn").text(state.currentTurn).classed("red", state.currentTurn == 6 || state.currentTurn == 7);
+        
     // Buttons
     var buttonData = [
         {text: "Move", click: function() { state.move(); self.update(); }},
@@ -342,7 +344,7 @@ GameBoard.prototype.init = function() {
         ];
     
     
-    var buttonRoot = this.zoom.append("g").attr("transform", "translate(" + (SQUARE_SIZE * state.cols + 10) + "," + SQUARE_SIZE*3 + ")");
+    var buttonRoot = controls.append("g").attr("transform", "translate(0," + SQUARE_SIZE*2.5 + ")");
     var buttons = buttonRoot.selectAll("g").data(buttonData).enter().append("g").attr("class", function(d) { return d.cls; });
     buttons.append("rect")
         .attr("rx", 5).attr("ry", 5).attr("class", "button")
