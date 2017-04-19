@@ -48,16 +48,16 @@ p { text-align: justify; }
         The game is played by 2-4 players. Each player controls a boat in a regatta race. In a two-player game each player can control two boats.
         </p>
         <p>
-        Boats move along the board with the goal to cross the starting line, follow a regatta course, and cross the finish line first. The simplest regatta course requires rounding the buoy at the top of the board (leaving it to the left) and finishing at the starting line. You can of course choose to make more laps or choose a different course completely.
+        Boats move along the board with the goal to cross the starting line, follow a regatta course, and cross the finish line first. The simplest regatta course requires rounding the buoy at the top of the board (leaving it to the left) and finishing at the starting line. You can of course choose to make more laps or choose a different course completely (the board lets you position the buoys to your liking).
         </p>
         <p>
-        The gameplay is split into <i>turns</i>. In each turn each boat performs some of the <i>allowed actions</i>. Once every boat has performed the actions, a new turn begins.
+        The gameplay is split into <i>turns</i>. In each turn each boat performs some of the <i>allowed actions</i>. Once every boat has performed the actions, a new turn begins. The order in which the boats perform their actions each turn is fixed before the beginning of the game (i.e. first player goes first, then second, etc).
         </p>
         <h3>The Wind, Puffs and Lulls</h3>
         <p>
-        The arrow at the upper right corner shows the wind direction (the one it is blowing towards). At the beginning of the game the wind blows "from the top of the board towards the bottom". Some squares on the board have darker or lighter color. The darker squares are "puffs" (regions with more wind), the lighter are "lulls" (regions with less wind). At the beginning of the game they are randomly distributed along the field.
+        The arrow at the upper right corner shows the wind direction (the one it is blowing at). At the beginning of the game the wind blows "from the top of the board towards the bottom". Some squares on the board have darker or lighter color. The darker squares are "puffs" (regions with more wind), the lighter are "lulls" (regions with less wind). At the beginning of the game they are randomly distributed along the field.
         </p>
-        <p>At the end of each turn the wind, puffs and lulls may change. A 6-sided dice is thrown - if the result is 1 all puffs and lulls move one space in the wind direction. If the result is 2, wind is rotated 45 degrees left or right (decided with a coinflip), otherwise nothing happens. The board does that automatically whenever the button "End turn" is clicked.
+        <p>At the end of each turn the wind, puffs and lulls may change. A 6-sided die is thrown - if the result is 1 all puffs and lulls move one space in the wind direction. If the result is 2, wind is rotated 45 degrees left or right (decided with a coinflip), otherwise nothing happens. The board does that automatically whenever the button "End turn" is clicked.
         </p>
         
         <h3>Actions</h3>
@@ -72,25 +72,29 @@ p { text-align: justify; }
         <li><b>Run.</b> Same as close reach - either moving or turning.
         </ul>
         <p>
-        A boat can skip any actions (either moves or turns) it wants to.
+        A boat can skip any actions (either moves or turns) it wants to. It is possible to not do anything at all.
         </p>
+        <p>In addition, a boat may <i>wait</i>, letting other players perform their actions before it. Every boat may wait at most once in a given turn. A boat <i>must</i> wait if its actions would otherwise impose a penalty on a second boat which has not yet made its turn (see below).
         <h3>Puffs and Lulls</h3>
-        <p>Whenever a boat moves into a lull, it is automatically stopped and "blocked" there. A blocked boat will skip the next turn - it's only possible action for that turn will be to "unblock" itself.</p>
+        <p>Whenever a boat moves into a lull, it is automatically stopped and "blocked" there (an "X" token is placed upon it). A blocked boat will skip the next turn - it's only possible action for that turn will be to "unblock" itself by removing the token.</p>
         <p>If, at the end of a turn, a lull moves away from under the boat, the block is also automatically removed. Similarly, if a lull moves to the square with a boat, the boat becomes blocked for the upcoming turn.</p>
-        <p>If a boat ends its action on a puff, AND its last action was a move (not a turn), it is entitled to make another move in the same direction. If after that move the boat again ends on a puff, it may take another move forward and so on.
+        <p>If a boat ends its action on a puff, <i>and</i> its last action was a move (not a turn), it is entitled to make another move in the same direction. If after that move the boat again ends on a puff, it may take another move forward and so on.
         </p>
         <h3>Wind Shadows</h3>
         <p>Each boat has its "wind shadow", which is located one square away in the wind direction. If a boat enters a wind shadow of any other boat, it becomes "shadowed". A special "shadow token" will be placed two squares ahead on the current course of the shadowed boat. It acts like a lull, applicable only to that particular boat. The shadow token will be removed whenever a shadowed boat manouvers (i.e. turns instead of moving forward).</p>
         <h3>Penalties</h3>
         <p>Whenever the square a boat A wants to move to is occupied by another boat B, the outcome depends on which of the boats has precedence.</p>
         <ul>
-        <li>If boat B has precedence, nothing happens. Boat A simply has to choose another course.</li>
-        <li>If boat A has precedence and boat B did not yet make its action, boat A may pass the turn, letting B act first, and then get back to resolving the situation.</li>
-        <li>If boat A has precedence and boat B already made its action this turn, boat A has to choose another course, but may declare a <i>penalty</i> for boat B.</li>
+        <li>If boat B has precedence, nothing happens. Boat A simply has to choose another course (or wait, hoping that B will liberate the square this turn).</li>
+        <li>If boat A has precedence and boat B did not yet make its action, boat A must <i>wait</i>, letting B act first, and then get back to resolving the situation. The boat B may not <i>wait</i> in this turn and must make its actions before A.</li>
+        <li>If boat A has precedence and boat B already made its action this turn, boat A can either choose another course, or declare a <i>penalty</i> for boat B, in which case, however, A has to skip this turn.</li>
         </ul>
-        <p>
-        For each penalty a boat gets it has to make a full turn of 4 moves sometime before the end of the race.
+        <p>If the players prefer, they may agree on a "proper course" rule: a boat A may only declare penalties for another boat B if B is preventing A from entering a square which A would want to enter even when B was not there. This prevents situations where A would divert from its proper course with the sole purpose of forcing penalties on B. On the other hand, such a rule diminishes some of the tactical aspect of the game a bit.
         </p>
+        <p>
+        For each received penalty a boat has to make a full rotation on a single square sometime before the end of the race. The full rotation may take as few as 2 turns (if started on a beam reach, where each turn lets you rotate 180 degrees) or as much as 4 (if the wind rotates unfavourably during the procedure). The player must declare when starting a penalty rotation, and may not move away from the square until the boat returns to the original orientation. The player may receive additional penalties while performing penalty turns.
+        </p>
+        
         <h3>Precedence Rules</h3>
         <p>The following interpretation of the standard sailing precedence rules is used:</p>
         <ul>
@@ -101,13 +105,15 @@ p { text-align: justify; }
         </ul>
         <p>Note that, for example, in the following situation (the wind coming from the top) the red boat (unless it is willing to get a penalty) is forced to sail forward without changing course.</p>
         <p class="text-center"><img src="rules-1.png"></p>
+        
         <h3>Spinnaker</h3>
-        <p>When on a broad reach or a beam reach, the boat may exchange its "manouver" action for a "set spinnaker" action. A 6-sided die is thrown and if 1 comes up, the boat becomes blocked. Otherwise, the boat starts carrying a "spinnaker" token. This is implemented in the board logic.</p>
+        <p>When on a broad reach or a beam reach, the boat may exchange its "manouver" action for a "set spinnaker" action. A 6-sided die is thrown and if 1 comes up, the boat becomes blocked. Otherwise, the boat starts carrying a "spinnaker" token. The board provides this functionality via the "spinnaker" button.</p>
         <p>A boat with a spinnaker token may not turn into beam or close reach. If a boat ends up in a beam or close reach due to a wind shift, it loses the spinnaker and becomes blocked.</p>
-        <p>On a broad reach or a run, a boat with a spinnaker may, instead of the standard actions, take two moves straight.</p>
         <p>To take down the spinnaker the boat needs to spend its "manouver" action. This is always successful (i.e. no dice thrown).</p>
+        <p>On a broad reach or a run, a boat with a spinnaker may, instead of the standard actions, take two moves straight.</p>
+        <p>A "better spinnaker" alternative rule (to be agreed before the game): on a broad reach or a run, a boat with a spinnaker may take a single "bonus" straight move before or after making the standard action. Using the "bonus" move, however, prohibits the boat from changing its tack this turn.
         <h3>The Start of the Race</h3>
-        <p>At the beginning the boats are positioned near the starting line. To begin the race they must cross the starting line at turn number 8 or later. If a boat is present at the starting line at turn 6 or 7 it gets a penalty.
+        <p>At the beginning the boats are positioned near the starting line. To begin the race they must cross the starting line at turn number 8 or later. If a boat is present at the starting line at turn 6 or 7 it gets a penalty. A boat also gets a penalty if it manouvers (i.e. stays) on the same square for more than two turns in a row before turn 8 (staying for the third turn in a row at the same square <i>at</i> turn number 8 does not result in a penalty).
         </p>
         <h3>The End of the Race</h3>
         <p>A boat finishes when it <i>crosses</i> the finish line (i.e. being on the line does not yet constitute a finish). If several boats finish on the same turn, the winner is determined by applying the <i>Precedence Rules</i> above to the boats <i>as they cross the finish line</i> (i.e. making a sharp turn to the wind after crossing the line does not help increase precedence).</p>

@@ -122,6 +122,7 @@ GameState.prototype.checkPosition = function(r, c) {
 GameState.prototype.move = function() {
     var p = this.players[this.currentPlayer];
     if (p.blocked) return; // Do not move a blocked player
+    //if (p.angleToWind(this.wind) == 0) return; // Do not move against wind
     
     var d = dir2vec(p.dir);
     var newR = p.r + d.dr, newC = p.c + d.dc;
